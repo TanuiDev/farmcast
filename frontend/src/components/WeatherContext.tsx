@@ -47,6 +47,7 @@ const WeatherContext = ({ county }: Props) => {
   if (!weather) return null;
 
   const { current, ai_summary } = weather;
+  const rainChance = current.precipitation_probability ?? 0;
 
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -56,8 +57,8 @@ const WeatherContext = ({ county }: Props) => {
         </h3>
       </div>
       <p className="text-sm text-blue-700 mb-2">
-        {Math.round(current.temp)}°C · {current.description} ·{" "}
-        {current.rain_chance}% rain chance
+        {Math.round(current.temperature)}°C · {current.condition_code} ·{" "}
+        {rainChance}% rain chance
       </p>
       {ai_summary && (
         <p className="text-xs text-blue-600 italic">{ai_summary}</p>
