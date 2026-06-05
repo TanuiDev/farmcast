@@ -16,7 +16,7 @@ export const useWeather = () => {
       const activeLang = language || lang;
       const data: WeatherResponse = await getWeather(geo.lat, geo.lon, activeLang);
 
-      // Enrich current with hourly data for the current hour
+      
       if (data.hourly && data.hourly.length > 0) {
         const now = new Date();
         const currentHour = data.hourly.find((h) => {

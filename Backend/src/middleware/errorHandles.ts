@@ -7,10 +7,8 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ): void => {
-  // Multer file upload errors -> return 400 with helpful message
   if (err instanceof multer.MulterError) {
     console.error('Multer error:', err.code, err.message);
-    // Map common Multer error codes to 400
     res.status(400).json({ error: 'File upload error', details: err.message });
     return;
   }

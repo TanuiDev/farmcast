@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// Use the built-in WHATWG FormData / Blob in Node (no external form-data package)
 
 const BASE_URL = "https://api.weather-ai.co";
 
@@ -21,7 +20,6 @@ export const analyzeTrees = async (req: Request, res: Response): Promise<void> =
     console.log("File:", req.file.originalname, req.file.mimetype, req.file.size);
     console.log("Body:", req.body);
 
-    // Build multipart using global WHATWG FormData and Blob so fetch/undici can handle headers
     const form = new (globalThis as any).FormData();
     const blob = new (globalThis as any).Blob([req.file.buffer], { type: req.file.mimetype });
     form.append("image", blob, req.file.originalname);
@@ -40,12 +38,11 @@ export const analyzeTrees = async (req: Request, res: Response): Promise<void> =
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.WEATHERAI_API_KEY}`,
-        // Do not manually set Content-Type/Content-Length — undici will set correct headers
       },
       body: form as unknown as BodyInit,
     });
 
-    // Safely parse response body (fall back to text if not JSON)
+    
     let data: any;
     const respText = await response.text();
     try {
@@ -58,14 +55,13 @@ export const analyzeTrees = async (req: Request, res: Response): Promise<void> =
     console.log("WeatherAI response (raw):", respText);
 
     if (!response.ok) {
-      // Log provider details but only return a generic message to client
       console.error('WeatherAI error details:', data);
       const detailsToClient = typeof data === 'string' ? data : undefined;
       res.status(response.status).json({ error: "WeatherAI error", details: detailsToClient });
       return;
     }
 
-    // Remove any upstream internal error fields before returning to client
+    
     if (data && typeof data === 'object') {
       if ('gemini_error' in data) {
         console.warn('WeatherAI gemini_error:', data.gemini_error);

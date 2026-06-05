@@ -14,7 +14,7 @@ const initializeApp = () => {
 
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: "https://farmcast-vert.vercel.app/",
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       credentials: true,
     }),
@@ -22,18 +22,15 @@ const initializeApp = () => {
 
   app.use(express.json());
 
-  // Health check
   app.get("/api/health", (_req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
 
-  // Routes
   app.use("/api/weather", weatherRoutes);
   app.use("/api/trees", treeRoutes);
   app.use("/api/geocode", geocodeRoutes);
   app.use("/api/sms", smsRoutes);
 
-  // Error handler — must be last
   app.use(errorHandler);
 
   return app;

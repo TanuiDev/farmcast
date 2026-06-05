@@ -8,10 +8,9 @@ import {
 
 const router = Router();
 
-// Accept images up to 5MB and only allow image/* mimetypes
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (file && file.mimetype && file.mimetype.startsWith('image/')) {
       cb(null, true);
@@ -25,7 +24,6 @@ router.post('/analyze', upload.single('image'), analyzeTrees);
 router.get('/history', getTreeHistory);
 router.get('/quota', getTreeQuota);
 
-// Temporary debug endpoint: echoes received file metadata and fields
 router.post('/debug-echo', upload.single('image'), (req, res) => {
   const file = req.file;
   const body = req.body;

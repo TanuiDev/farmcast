@@ -1,13 +1,12 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = "https://farmcast-8k5y.onrender.com";
 
-// ─── Geocode ──────────────────────────────────────────────
 export const geocodeLocation = async (q: string) => {
   const res = await fetch(`${API_URL}/api/geocode?q=${encodeURIComponent(q)}`);
   if (!res.ok) throw new Error("Location not found");
   return res.json();
 };
 
-// ─── Weather ──────────────────────────────────────────────
+ 
 export const getWeather = async (
   lat: number,
   lon: number,
@@ -49,7 +48,7 @@ export const getHourlyForecast = async (lat: number, lon: number) => {
   return res.json();
 };
 
-// ─── Tree Analysis ────────────────────────────────────────
+ 
 export const analyzeTrees = async (formData: FormData) => {
   const res = await fetch(`${API_URL}/api/trees/analyze`, {
     method: "POST",
@@ -71,7 +70,7 @@ export const getTreeQuota = async () => {
   return res.json();
 };
 
-// ─── SMS ──────────────────────────────────────────────────
+ 
 export const sendSMS = async (phone: string, message: string) => {
   const res = await fetch(`${API_URL}/api/sms/send`, {
     method: "POST",

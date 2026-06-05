@@ -1,4 +1,3 @@
-// ─── Weather Types ────────────────────────────────────────
 export interface CurrentConditions {
   time: string;
   temperature: number;
@@ -51,7 +50,7 @@ export interface WeatherResponse {
   ai_summary?: string;
 }
 
-// ─── Tree Analysis Types ──────────────────────────────────
+ 
 export interface TreeHealth {
   healthy: number;
   needs_care: number;
@@ -102,7 +101,7 @@ export interface TreeQuotaResponse {
   resets_at: string;
 }
 
-// ─── Geocode Types ────────────────────────────────────────
+ 
 export interface GeocodeResult {
   lat: number;
   lon: number;
@@ -111,7 +110,7 @@ export interface GeocodeResult {
   formatted: string;
 }
 
-// ─── SMS Types ────────────────────────────────────────────
+ 
 export interface SMSRequest {
   phone: string;
   message: string;

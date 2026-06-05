@@ -48,7 +48,6 @@ const analyze = async (formData: FormData) => {
     }
   };
 
-  // Load history and quota on mount
   useEffect(() => {
     fetchHistory();
     fetchQuota();
