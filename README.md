@@ -1,6 +1,6 @@
 # Farmcast — Weather & Tree Analyzer
 
-This project demonstrates a small app that integrates the WeatherAI developer APIs to provide weather data and a tree analyzer (image-based tree counting & health analysis).
+This project demonstrates a small app that integrates WeatherAI APIs to provide weather data and a tree analyzer for farm images.
 
 The repo contains two parts:
 - `Backend/` — Node + Express API proxy and server-side integrations with WeatherAI, OpenCage (geocoding), and an SMS sandbox.
@@ -97,21 +97,34 @@ The frontend expects the backend base URL in `VITE_API_URL`. If you run both ser
 
 The `TreeAnalyzer` component allows drag/drop or file selection, collects simple metadata, and posts the image to `/api/trees/analyze`.
 
-## Notes, limitations & recommendations
+## How the app works
+
+The app has two main parts:
+
+### 1. Weather dashboard
+- A user searches for a location through the frontend.
+- The frontend sends the location to the backend geocoding endpoint.
+- The backend converts the location into latitude and longitude using OpenCage.
+- The backend then calls WeatherAI to fetch current weather, daily forecast, hourly forecast, and optional AI summary data.
+- The frontend renders the weather cards, summary, and forecast sections.
+
+### 2. Farm tree analyzer
+- A user switches to the Farm Analyzer tab and uploads an image.
+- The frontend sends the image and optional farm details such as farmer ID, county, land size, location, and notes.
+- The backend receives the file with `multer`, then forwards it to WeatherAI's tree analysis endpoint.
+- WeatherAI returns tree count, canopy coverage, confidence, health breakdown, and analysis metadata.
+- The frontend displays the result and history data, and can also send SMS updates through the backend SMS route.
+
+### 3. Supporting services
+- The backend exposes a quota endpoint so the frontend can show usage information.
+- The SMS route uses Africa's Talking sandbox messaging.
+- The app keeps the image upload flow simple by using in-memory file handling for development.
+
+## Limitations
 
 - The backend currently accepts uploads in memory (`multer.memoryStorage()`) and limits uploads to 5 MB — this is convenient for development but not ideal for large images in production. Consider switching to streaming or temporary disk storage for large files.
 - The WeatherAI provider response can include provider-specific debug fields (e.g., `gemini_error`). The backend strips or logs those to avoid leaking provider internals to end users.
 - If you get `Could not parse multipart body` errors from the provider, ensure `WEATHERAI_API_KEY` is correct and that the provider accepts multipart uploads. The code uses Node's WHATWG `FormData` and `Blob` to let `undici` compute multipart boundaries and headers.
-
-## Deployment
-
-You can deploy the frontend (Vite) and backend separately. For quick deployment:
-
-- Backend: Render / Railway / Fly.io — provide `WEATHERAI_API_KEY`, `OPENCAGE_API_KEY`, and other env vars via the platform dashboard.
-- Frontend: Netlify / Vercel – set `VITE_API_URL` to your backend's URL.
-
-Notes on the submission requirement:
-- This project was built to satisfy an integration assignment that requires a public GitHub repository with a README and a live deployment link. To publish a live link, deploy the backend and frontend to the hosting provider of your choice and set the required environment variables on that platform.
 
 ## Example troubleshooting
 
@@ -122,10 +135,4 @@ Notes on the submission requirement:
 
 ## Contributing
 
-Feel free to open issues or PRs. Suggestions:
-- Add persistent storage for analyses (sqlite or MongoDB).
-- Improve image validation (minimum resolution, aspect ratio) client-side.
-- Add unit / integration tests for API routes.
-
----
-If you'd like, I can also add a short `DEPLOY.md` documenting steps to publish on Render or Railway and include the exact environment settings required.
+Feel free to open issues or PRs if you want to extend the weather or tree analysis flows.
