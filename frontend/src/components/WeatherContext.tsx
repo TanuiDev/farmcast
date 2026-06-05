@@ -51,7 +51,6 @@ const WeatherContext = ({ county }: Props) => {
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-blue-500">🌤️</span>
         <h3 className="text-sm font-semibold text-blue-800">
           Weather Context — {county}
         </h3>

@@ -54,7 +54,7 @@ const TreeAnalyzer = () => {
   return (
     <div className="bg-white rounded-2xl shadow p-6 space-y-6">
       <h3 className="text-lg font-semibold text-gray-800">
-        🌿 Farm Tree Analyzer
+        Farm Tree Analyzer
       </h3>
 
       <div
@@ -76,7 +76,7 @@ const TreeAnalyzer = () => {
           />
         ) : (
           <div>
-            <p className="text-4xl mb-2">📸</p>
+            <p className="text-4xl mb-2">Select image</p>
             <p className="text-sm text-gray-500">
               Drag & drop a farm image or click to browse
             </p>

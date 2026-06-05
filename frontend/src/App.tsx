@@ -32,7 +32,6 @@ const App = () => {
       <header className="bg-green-700 text-white px-6 py-4 shadow">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🌿</span>
             <h1 className="text-xl font-bold tracking-tight">FarmaCast</h1>
           </div>
           <p className="text-green-200 text-sm hidden sm:block">
@@ -44,7 +43,7 @@ const App = () => {
       {/* Tabs */}
       <div className="bg-white border-b border-gray-200 px-6">
         <div className="max-w-4xl mx-auto flex gap-6">
-          <button
+            <button
             onClick={() => setActiveTab("weather")}
             className={`py-3 text-sm font-medium border-b-2 transition ${
               activeTab === "weather"
@@ -52,7 +51,7 @@ const App = () => {
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
-            🌤️ Weather Dashboard
+            Weather Dashboard
           </button>
           <button
             onClick={() => setActiveTab("farm")}
@@ -62,7 +61,7 @@ const App = () => {
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
-            🌿 Farm Analyzer
+            Farm Analyzer
           </button>
         </div>
       </div>
@@ -118,7 +117,7 @@ const App = () => {
             {/* Empty State */}
             {!weather && !loading && (
               <div className="text-center py-20 text-gray-400">
-                <p className="text-4xl mb-3">🌍</p>
+                <p className="text-4xl mb-3">Welcome</p>
                 <p className="text-sm">Search for a location to get started</p>
               </div>
             )}
