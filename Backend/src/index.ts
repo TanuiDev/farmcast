@@ -14,7 +14,7 @@ const initializeApp = () => {
 
   app.use(
     cors({
-      origin: "https://farmcast-vert.vercel.app/",
+      origin: "https://farmcast-vert.vercel.app",
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
       credentials: true,
     }),
