@@ -11,8 +11,7 @@
     "forceConsistentCasingInFileNames": true, 
     /* Type Checking */
     "strict": true,
-    "skipLibCheck": true ,
-  "types": ["node"]
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*" , 
